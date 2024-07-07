@@ -1,0 +1,102 @@
+.container {
+   width: 500px;
+    margin-top: 20px;
+    border: 0px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.profile-pic{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.btn.btn-default.navbar-btn {
+    flex-grow: 1;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 8px 15px;
+ 
+}
+h5.modal-title{
+   font-size:20px;
+   margin: auto;
+}
+
+.modal-header {
+    display: flex;
+    font-family: sans-serif;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header .close {
+    width: 30px;
+    height: 30px;
+    background-color:rgb(249, 229, 229);
+    border: none;
+    float: right;
+}
+
+.modal-body {
+    padding: 15px;
+    width: 500px;
+}
+
+.post-body {
+    display: flex;
+    align-items: start;
+}
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid #e9ecef;
+}
+
+.file-input {
+    display: block;
+    width: 100%;
+}
+
+.modal-footer {
+    padding: 10px;
+    border-top: 1px solid #e9ecef;
+}
+.btn-primary{
+    width: 100%;
+    padding: 5px;
+}
+.post-imgae{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    display:inline-flex;
+}
+.text-area {
+    position: absolute;
+    border-color: transparent;
+    width: auto;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    background-color: white;
+    color: black;
+    padding: 0 10px;
+}

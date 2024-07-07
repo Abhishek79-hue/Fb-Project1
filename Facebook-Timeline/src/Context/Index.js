@@ -1,0 +1,1 @@
+export {FacebookPostContext,useFacebookPost,FacebookpostProvider} from "../Context/FacekbookContext"

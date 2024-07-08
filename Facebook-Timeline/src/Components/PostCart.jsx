@@ -5,6 +5,8 @@ import Profile from '../Images/Profile.jpeg'
 import { useFacebookPost} from '../Context/Index'
 
 function PostCart({post}) {
+    const[isEdit,setisEdit]=useState("")
+    const{UpdatePost}=useFacebookPost()
 
  const{deletePost}=useFacebookPost()
     return (
@@ -26,7 +28,7 @@ function PostCart({post}) {
                         <div className='post-body'>
                             <div className='post-image-container'>
                              <div className='post-text'>{post.post}</div>
-                                <img src={"http://139.59.47.49:4004/1720000491685.jpeg"} className='post-image' alt="Post" />
+                                <img src={post.background} className='post-image' alt="Post" />
                                 
                             </div>
                         </div>

@@ -7,28 +7,28 @@ import { FacebookpostProvider } from './Context/FacekbookContext'
 import axios from 'axios'
 
 function App() {
-  const[posts,setPost]=useState([])
+  const[posts,setPosts]=useState([])
 
   useEffect(() => {
     let data= axios.get("http://139.59.47.49:4004/api/posts?limit=10&start=1&orderby=1").then((res) => {
-         console.log(res.data)
-         setPost(res.data)
+         setPosts(res.data)
      })
  }, [])
-  const addPost=(post)=>{
-    setPost((prev)=>[{id:Date.now(),...post},...prev])
+    const addPost=(post)=>{
+    setPosts((prev)=>[{id:Date.now(),...post},...prev])
+  }
+  const UpdatePost=(id,post)=>{
+    setPosts((prev)=>posts.filter((PrevPost)=>PrevPost.id===id))
   }
   const deletePost=(id)=>{
-    setPost((prev)=>prev.filter((post)=>post.id!==id))
+    setPosts((prev)=>prev.filter((post)=>post.id!==id))
   }
 
   return (
     <>
  
 <ProfileHeader/>
-  
-    
-      <FacebookpostProvider value={{posts,addPost,deletePost}}>
+  <FacebookpostProvider value={{posts,UpdatePost,addPost,deletePost}}>
         <div>
     <AddPost/>
     <FiterSection/>

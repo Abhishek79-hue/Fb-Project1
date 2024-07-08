@@ -2,18 +2,35 @@ import React, { useState } from 'react';
 import image from '../Images/Profile.jpeg';
 import './AddPost.css'
 import { useFacebookPost } from '../Context/FacekbookContext';
+import axios from 'axios';
 function AddPost() {
-  const[file,setFile]=useState("")
+  const[formData,setFormdata]=useState("")
+  const[post,setPost]=useState("")
+  const[file,setfile]=useState("")
+
   const {addPost}=useFacebookPost()
 
   const handleImageUplaod=(e)=>{
-    setFile(URL.createObjectURL(e.target.files[0]))
+    setfile(URL.createObjectURL(e.target.files[0]))
   }
   const add=(e)=>{
-    add(post)
-    setFile("")
-  }
-
+   e.preventDefault()
+   const formData=new FormData();
+   formData.append("file",file)
+   formData.append("FileName",file.name)
+    }
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+    axios.post("http://139.59.47.49:4004/api/post",formData,config).then((res)=>{
+      console.log(res.data)
+       addPost(res.data.file,post)
+    }).catch((error)=>{
+      console.log("error")
+    })
+    
   return (
     <div className='container'>
       <div className="post-header">
@@ -38,11 +55,11 @@ function AddPost() {
                 
               </div>
                 <input type="file" className="file-input" onChange={handleImageUplaod}/>
-                <img src={file} className='post-imgae' onClick={add}/>
-            <input type="text" name="" id="" className='text-area'/>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn-primary" data-dismiss="modal">Post</button>
+                <img src={file} className='post-imgae' />
+             <input type="text" name="" id="" className='text-area' onChange={(e)=>setPost(e.target.value)} value={post}/>
+              </div>
+              <div className="modal-footer">
+              <button type="button" className="btn-primary" data-dismiss="modal" onClick={add}>Post</button>
             </div>
           </div>
         </div>

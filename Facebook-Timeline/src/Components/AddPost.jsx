@@ -6,28 +6,32 @@ import axios from 'axios';
 
 function AddPost() {
   const [post,setPost] = useState("");
-  const [background,setBackground] = useState(""); // Changed to null for better initialization
+  const [background,setBackground] = useState(null); 
 
   const { addPost } = useFacebookPost();
 
   const add = async(e) => {
     e.preventDefault()
     const fd = new FormData();
-     fd.append("post",post)
-     fd.append("background",background);
+     fd.append("file",background);
      console.log(post,background)
 
-  const config = {
-    headers: {
-      'content-type': 'multipart/form-data',
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     'content-type': 'multipart/form-data',
+  //   },
+  // };
 
   try {
-    const response = await axios.post("http://139.59.47.49:4004/api/post", fd, config);
-    console.log(response);
+    const response = await axios.post("http://139.59.47.49:4004/api/upload/image", fd,);
+  console.log(response);
+
+  const responsePost = await axios.post("http://139.59.47.49:4004/api/post", {post:post,background:response.data.filename
+  });
+   console.log(responsePost);
+    addPost({post,background:response.data.filename})
     setPost("");
-    setBackground(null);
+    setBackground("");
   } catch (error) {
     console.error("Error uploading file:", error.response ? error.response.data : error.message);
   }
@@ -63,8 +67,6 @@ function AddPost() {
                   placeholder="What's on your mind?"
                 />
                 <input type="file" className="file-input" onChange={(e)=>setBackground(e.target.files[0])} />
-                <img src={URL.createObjectURL(background)} className='post-image'/>
-               
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={add}>Post</button>

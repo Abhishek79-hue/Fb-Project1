@@ -10,7 +10,7 @@ function App() {
   const[posts,setPosts]=useState([])
 
   useEffect(() => {
-    let data= axios.get("http://139.59.47.49:4004/api/posts?limit=10&start=1&orderby=1").then((res) => {
+    let data= axios.get("http://139.59.47.49:4004/api/posts?limit=10&start=1&orderby=0").then((res) => {
          setPosts(res.data)
      })
  }, [])

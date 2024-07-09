@@ -5,10 +5,11 @@ import Profile from '../Images/Profile.jpeg'
 import { useFacebookPost} from '../Context/Index'
 
 function PostCart({post}) {
-    const[isEdit,setisEdit]=useState("")
-    const{UpdatePost}=useFacebookPost()
+    const[isEdit,setisEdit]=useState(false)
+    const[editPost,setEditpost]=useState(post.post)
+    const[editBackgorund,setEditBackground]=useState("")
 
- const{deletePost}=useFacebookPost()
+ const{UpdatePost,deletePost}=useFacebookPost()
 
  const handledelete=async(post)=>{
     try {
@@ -29,7 +30,7 @@ function PostCart({post}) {
                                 ...
                                 </button>
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#"data-toggle="modal" data-target="#myModal" >Edit</a>
+                                    <a className="dropdown-item" href="#"data-toggle="modal" data-target="#myModal" onClick={()=>handleUpdate(post)}>Edit</a>
                                     <a className="dropdown-item" href="#" onClick={()=>handledelete(post)}>Delete</a>
                                 </div>
                             </div>

@@ -12,8 +12,9 @@ function AddPost() {
 
   const add = async(e) => {
     e.preventDefault()
+
     const fd = new FormData();
-     fd.append("file",background);
+     fd.append("file",background);  
      console.log(post,background)
 
   // const config = {
@@ -36,6 +37,7 @@ function AddPost() {
     console.error("Error uploading file:", error.response ? error.response.data : error.message);
   }
 }
+
 
   return (
     <div className='container'>

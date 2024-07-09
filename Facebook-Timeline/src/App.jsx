@@ -18,7 +18,7 @@ function App() {
     setPosts((prev)=>[{id:Date.now(),...post},...prev])
   }
   const UpdatePost=(id,post)=>{
-    setPosts((prev)=>posts.filter((PrevPost)=>PrevPost.id===id))
+    setPosts((prev)=>prev.filter((PrevPost)=>(PrevPost.id===id?post:PrevPost)))
   }
   const deletePost=(id)=>{
     setPosts((prev)=>prev.filter((post)=>post.id!==id))

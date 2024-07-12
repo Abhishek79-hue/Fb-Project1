@@ -4,20 +4,31 @@ import "./PostCart.css"
 import Profile from '../Images/Profile.jpeg'
 import { useFacebookPost} from '../Context/Index'
 
-function PostCart({post}) {
-    const[isEdit,setisEdit]=useState(false)
-    const[editPost,setEditpost]=useState(post.post)
-    const[editBackgorund,setEditBackground]=useState("")
+function PostCart(props) { 
+    const{posts,setPost,setBackground,setEditId}=props
+   
 
- const{UpdatePost,deletePost}=useFacebookPost()
+ const{deletePost}=useFacebookPost()
 
- const handledelete=async(post)=>{
+ const handledelete=async(posts)=>{
     try {
-        await axios.delete(`http://139.59.47.49:4004/api/post/delete/${post.id}`)
-        deletePost(post.id)
+        await axios.delete(`http://139.59.47.49:4004/api/post/delete/${posts.id}`)
+        
+        deletePost(posts.id)
     } catch (error) {
         console.log("error")
     }
+ }
+ const handleEdit=async(id)=>{
+
+try {
+ const response=await axios.get(`http://139.59.47.49:4004/api/post/${id}`)
+   setPost(response.data.post)
+   setBackground(response.data.background)
+   setEditId(id)
+  } catch (error) {
+    console.log("error")
+  }
  }
     return (
         <div className='post-wrapper'>
@@ -30,15 +41,15 @@ function PostCart({post}) {
                                 ...
                                 </button>
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#"data-toggle="modal" data-target="#myModal" onClick={()=>handleUpdate(post)}>Edit</a>
-                                    <a className="dropdown-item" href="#" onClick={()=>handledelete(post)}>Delete</a>
+                                    <a className="dropdown-item" href="#"data-toggle="modal" data-target="#myModal" onClick={()=>handleEdit(posts.id)}>Edit</a>
+                                    <a className="dropdown-item" href="#" onClick={()=>handledelete(posts)}>Delete</a>
                                 </div>
                             </div>
                         </div>
                         <div className='post-body'>
                             <div className='post-image-container'>
-                             <div className='post-text'>{post.post}</div>
-                                <img src={`http://139.59.47.49:4004/uploads/${post.background}`}className='post-image' alt="Post" />
+                             <div className='post-text'>{posts.post}</div>
+                                <img src={`http://139.59.47.49:4004/uploads/${posts.background}`}className='post-image' alt="Post" />
                                 
                             </div>
                         </div>

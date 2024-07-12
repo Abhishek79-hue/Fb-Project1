@@ -24,17 +24,21 @@ function App() {
     setPosts((prev)=>prev.filter((post)=>post.id!==id))
   }
 
+  const [post,setPost] = useState("");
+  const [background,setBackground] = useState(""); 
+  const[editId,setEditId]=useState("")
+
   return (
     <>
  
 <ProfileHeader/>
   <FacebookpostProvider value={{posts,UpdatePost,addPost,deletePost}}>
         <div>
-    <AddPost/>
+    <AddPost post={post} background={background} setBackground={setBackground} setPost={setPost} editId={editId} setEditId={setEditId} />
     <FiterSection/>
     {posts.map((post)=>(
       <div key={post.id}>
-        <PostCart post={post}/>
+        <PostCart posts={post} post={post} background={background} setBackground={setBackground} setPost={setPost} editId={editId} setEditId={setEditId}/>
         </div>
     ))}
     </div>

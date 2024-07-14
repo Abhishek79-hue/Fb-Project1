@@ -5,7 +5,7 @@ import { useFacebookPost } from "../Context/FacekbookContext";
 import axios from "axios";
 
 function AddPost(props) {
-  const {post, setPost, setBackground, background,editId} = props;
+  const {post, setPost, setBackground, background,editId,} = props;
   // const [post,setPost] = useState("");
   // const [background,setBackground] = useState(null);
 
@@ -36,8 +36,8 @@ function AddPost(props) {
       );
       console.log(responsePost);
       addPost({ post, background: response.data.filename })
-      setPost("")
-      setBackground("")
+      setPost('')
+      setBackground('')
     } catch (error) {
       console.error(
         "Error uploading file:",
@@ -47,14 +47,14 @@ function AddPost(props) {
   };
  const Update=async(e)=>{
   e.preventDefault()
+  
   const fd=new FormData()
   fd.append("file",background)
-
   const response=await axios.post("http://139.59.47.49:4004/api/upload/image",fd)
-
+  
  try {
     const updateResponse=await axios.put("http://139.59.47.49:4004/api/post",{id:editId,post:post,background:response.data.filename})
-    
+    UpdatePost({id:editId,post:post,background:response.data.filename})
   } catch (error) {
     console.log("error")
   }
@@ -97,17 +97,17 @@ function AddPost(props) {
               <div className="modal-body">
                 <div className="post-body">
                   <img src={image} className="profile-pic"/>
-                  
-                  {/* <img
-                    src={background ? URL.createObjectURL(background):image}
+                  <img
+                    src={background ? URL.createObjectURL(background):background}
                     alt="Profile"
                     className="post-image"
-                  /> */}
+                  /> 
                 </div>
                 <input
                   type="text"
                   className="text-area"
                   onChange={(e) => setPost(e.target.value)}
+                  value={post}
                   placeholder="What's on your mind?"
                 />
                 <input
@@ -117,22 +117,27 @@ function AddPost(props) {
                 />
               </div>
               <div className="modal-footer">
-               <button
-                  type="button"
-                  className="btn btn-primary"
-                  data-dismiss="modal"
-                  onClick={add}
-                >
-                  Post
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  data-dismiss="modal"
-                  onClick={Update}
-                >
-                Update
-                </button>
+              {!editId ? (
+  <button
+    type="button"
+    className="btn btn-primary"
+    data-dismiss="modal"
+    onClick={add}
+  >
+    Post
+  </button>
+) : (
+  <button
+    type="button"
+    className="btn btn-primary"
+    data-dismiss="modal"
+    onClick={Update}
+  >
+    Update
+  </button>
+)}
+
+
               </div>
             </div>
           </div>
